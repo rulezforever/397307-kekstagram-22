@@ -22,6 +22,11 @@ checkLength('hello', 5);
 const POST_COUNT = 25;
 const AVATAR_COUNT = 6;
 const COMMENTS_COUNT = 10;
+const LIKES_COUNT_MIN = 15;
+const LIKES_COUNT_MAX = 200;
+const ID_COUNT = 500;
+const ID = Array.from({ length: 25 }, (_, i) =>  i + 1);
+const DESCRIPTION = 'Описание';
 
 const NAMES = [
   'Иван',
@@ -34,38 +39,41 @@ const NAMES = [
   'Вашингтон',
 ];
 
-const MESSAGE = [
+const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
+  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
+  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
+  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
+  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const ID = Array.from({ length: 25 }, (_, i) =>  i + 1);
-
-const DESCRIPTION = 'Описание';
-
-const getRandomArrayElement = (elemets) => {
+const getRandomArrayElement = (elements) => {
   // eslint-disable-next-line no-undef
-  return elemets[_.random(0, elemets.length - 1)];
+  return elements[_.random(0, elements.length - 1)];
 }
 
+const getRandomMessage = () =>  MESSAGES[Math.floor(Math.random() * 6)];
+
 const createRandomComment = () => {
-  const randomAvatar = getRandomIntInclusive(1, AVATAR_COUNT);
-  const randomId = getRandomIntInclusive(1, 500);
+  const avatarNumber = getRandomIntInclusive(1, AVATAR_COUNT);
   return {
-    id: randomId,
-    avatar: `img/avatar-${randomAvatar}.svg`,
-    message: getRandomArrayElement(MESSAGE),
+    id: getRandomIntInclusive(1, ID_COUNT),
+    avatar: `img/avatar-${avatarNumber}.svg`,
+    message: [getRandomMessage(), getRandomMessage()],
     name: getRandomArrayElement(NAMES),
   };
 }
 
+const uid = () =>  Math.floor(Math.random() * 25);
+
 const createPost = () => {
   const comments = new Array(getRandomIntInclusive(1, COMMENTS_COUNT)).fill(null).map(() => createRandomComment());
   return {
-    id: getRandomArrayElement(ID),
+    id: uid(),
     url: `photos/${getRandomArrayElement(ID)}.jpg`,
     description: DESCRIPTION,
-    likes: getRandomIntInclusive(15,200),
+    likes: getRandomIntInclusive(LIKES_COUNT_MIN, LIKES_COUNT_MAX),
     comments: comments,
   };
 };
@@ -73,4 +81,3 @@ const createPost = () => {
 const posts = new Array(POST_COUNT).fill(null).map(() => createPost());
 // eslint-disable-next-line no-console
 console.log(posts);
-// подскажи, как придумать функцию, чтобы ID не повторялись?
