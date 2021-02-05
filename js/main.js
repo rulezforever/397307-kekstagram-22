@@ -26,6 +26,7 @@ const LIKES_COUNT_MIN = 15;
 const LIKES_COUNT_MAX = 200;
 const ID_COUNT = 500;
 const ID = Array.from({ length: 25 }, (_, i) =>  i + 1);
+const ID_PHOTO = Array.from({ length: 25 }, (_, i) =>  i + 1);
 const DESCRIPTION = 'Описание';
 
 const NAMES = [
@@ -53,25 +54,48 @@ const getRandomArrayElement = (elements) => {
   return elements[_.random(0, elements.length - 1)];
 }
 
-const getRandomMessage = () =>  MESSAGES[Math.floor(Math.random() * 6)];
+const getRandomMessage = () => {
+  const firstMessage = MESSAGES[Math.floor(Math.random() * 6)];
+  const secondMessage = MESSAGES[Math.floor(Math.random() * 6)];
+  return [firstMessage, secondMessage];
+}
 
 const createRandomComment = () => {
   const avatarNumber = getRandomIntInclusive(1, AVATAR_COUNT);
   return {
     id: getRandomIntInclusive(1, ID_COUNT),
     avatar: `img/avatar-${avatarNumber}.svg`,
-    message: [getRandomMessage(), getRandomMessage()],
+    message: getRandomMessage(),
     name: getRandomArrayElement(NAMES),
   };
 }
 
-const uid = () =>  Math.floor(Math.random() * 25);
+const shuffle = (array) => {
+  let i = array.length;
+  let j = 0;
+
+  while(i--) {
+    j = Math.floor(Math.random() * (i+1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+let arr = shuffle(ID);
+let arr2 = shuffle(ID_PHOTO);
+
+const getUnicIdFrom = (array) => {
+  if (array.length !== 0) {
+    return Number(array.splice(0, 1));
+  }
+  return 'Массив закончился';
+}
 
 const createPost = () => {
   const comments = new Array(getRandomIntInclusive(1, COMMENTS_COUNT)).fill(null).map(() => createRandomComment());
   return {
-    id: uid(),
-    url: `photos/${getRandomArrayElement(ID)}.jpg`,
+    id: getUnicIdFrom(arr),
+    url: `photos/${getUnicIdFrom(arr2)}.jpg`,
     description: DESCRIPTION,
     likes: getRandomIntInclusive(LIKES_COUNT_MIN, LIKES_COUNT_MAX),
     comments: comments,
