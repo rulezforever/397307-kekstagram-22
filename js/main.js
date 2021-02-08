@@ -45,9 +45,34 @@ const MESSAGES = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
+// eslint-disable-next-line no-undef
+let shuffledIds = _.shuffle(UNIC_IDS);
+// eslint-disable-next-line no-undef
+let shuffledCommentsIds = _.shuffle(UNIC_COMMENTS_IDS);
+
 const getRandomArrayElement = (elements) => {
   // eslint-disable-next-line no-undef
   return elements[_.random(0, elements.length - 1)];
+}
+
+const getRandomsFrom = (array, randomNumber) => {
+  array = array.slice();
+  const result = [];
+  const random = getRandomIntInclusive(1, randomNumber);
+  for (let i = 1; i <= random; i++) {
+    const messageNumber = getRandomIntInclusive(0, array.length -1);
+    result.push(array[messageNumber]);
+    array.splice(messageNumber, 1);
+
+  }
+  return result.join(' ');
+}
+
+const getUnicIdFrom = (array) => {
+  if (array.length !== 0) {
+    return Number(array.splice(0, 1));
+  }
+  return -1;
 }
 
 const createRandomComment = () => {
@@ -58,39 +83,6 @@ const createRandomComment = () => {
     message: getRandomsFrom(MESSAGES, 2),
     name: getRandomArrayElement(NAMES),
   };
-}
-
-const getRandomsFrom = (array, randomNumber) => {
-  const copyArray = MESSAGES.slice();
-  const emptyArray = [];
-  const random = getRandomIntInclusive(1, randomNumber);
-  for (let i = 1; i <= random; i++) {
-    const messageNumber = getRandomIntInclusive(1, array.length);
-    emptyArray.push(copyArray[messageNumber]);
-    copyArray.splice(messageNumber, 1);
-  }
-  return emptyArray.join();
-}
-
-const shuffle = (array) => {
-  let i = array.length;
-  let j = 0;
-
-  while(i--) {
-    j = Math.floor(Math.random() * (i+1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
-
-let shuffledIds = shuffle(UNIC_IDS);
-let shuffledCommentsIds = shuffle(UNIC_COMMENTS_IDS);
-
-const getUnicIdFrom = (array) => {
-  if (array.length !== 0) {
-    return Number(array.splice(0, 1));
-  }
-  return -1;
 }
 
 const createPost = () => {
