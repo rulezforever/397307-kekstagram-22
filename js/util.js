@@ -27,7 +27,6 @@ const getRandomsFrom = (array, randomNumber) => {
     const messageNumber = getRandomIntInclusive(0, array.length - 1);
     result.push(array[messageNumber]);
     array.splice(messageNumber, 1);
-
   }
   return result.join(' ');
 }

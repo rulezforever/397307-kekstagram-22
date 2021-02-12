@@ -1,3 +1,5 @@
+import { getRandomIntInclusive, getUnicIdFrom, getRandomsFrom, getRandomArrayElement} from './util.js';
+
 const POST_COUNT = 25;
 const AVATAR_COUNT = 6;
 const COMMENTS_COUNT = 10;
@@ -27,4 +29,34 @@ const MESSAGES = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-export { POST_COUNT, AVATAR_COUNT, COMMENTS_COUNT, LIKES_COUNT_MIN, LIKES_COUNT_MAX, UNIC_IDS, UNIC_COMMENTS_IDS, DESCRIPTION, NAMES, MESSAGES };
+// eslint-disable-next-line no-undef
+let shuffledIds = _.shuffle(UNIC_IDS);
+
+const createPost = () => {
+  const comments = new Array(getRandomIntInclusive(1, COMMENTS_COUNT)).fill(null).map(() => createRandomComment());
+  const uniqueId = getUnicIdFrom(shuffledIds);
+  return {
+    id: uniqueId,
+    url: `photos/${uniqueId}.jpg`,
+    description: DESCRIPTION,
+    likes: getRandomIntInclusive(LIKES_COUNT_MIN, LIKES_COUNT_MAX),
+    comments,
+  };
+};
+
+// eslint-disable-next-line no-undef
+let shuffledCommentsIds = _.shuffle(UNIC_COMMENTS_IDS);
+
+const createRandomComment = () => {
+  const avatarNumber = getRandomIntInclusive(1, AVATAR_COUNT);
+  return {
+    id: getUnicIdFrom(shuffledCommentsIds),
+    avatar: `img/avatar-${avatarNumber}.svg`,
+    message: getRandomsFrom(MESSAGES, 2),
+    name: getRandomArrayElement(NAMES),
+  };
+}
+
+const posts = new Array(POST_COUNT).fill(null).map(() => createPost());
+
+export { posts, createRandomComment, createPost, POST_COUNT, AVATAR_COUNT, COMMENTS_COUNT, LIKES_COUNT_MIN, LIKES_COUNT_MAX, UNIC_IDS, UNIC_COMMENTS_IDS, DESCRIPTION, NAMES, MESSAGES };
