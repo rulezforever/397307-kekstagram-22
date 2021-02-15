@@ -59,4 +59,4 @@ const createRandomComment = () => {
 
 const posts = new Array(POST_COUNT).fill(null).map(() => createPost());
 
-export { posts, createRandomComment, createPost, POST_COUNT, AVATAR_COUNT, COMMENTS_COUNT, LIKES_COUNT_MIN, LIKES_COUNT_MAX, UNIC_IDS, UNIC_COMMENTS_IDS, DESCRIPTION, NAMES, MESSAGES };
+export { posts, createPost };
