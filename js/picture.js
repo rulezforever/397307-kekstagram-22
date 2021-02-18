@@ -2,7 +2,6 @@ import { posts } from './data.js';
 
 const pictures = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content;
-const picturesListElement = pictures.querySelector('.pictures__list');
 const postFragment = document.createDocumentFragment();
 
 posts.forEach(({ url, likes, comments}) => {
@@ -13,4 +12,4 @@ posts.forEach(({ url, likes, comments}) => {
   postFragment.appendChild(pictureElement);
 });
 
-picturesListElement.appendChild(postFragment);
+pictures.appendChild(postFragment);
