@@ -44,17 +44,17 @@ const createElement = (template) => {
   return newElement.content.childNodes[1];
 }
 
-const getTemplate = (post) => {
-  return `
-  <li class="social__comment">
-  <img
-      class="social__picture"
-      src="${post.avatar}"
-      alt="${post.name}"
-      width="35" height="35">
-  <p class="social__text">${post.message}</p>
-</li>`;
-}
+// const getTemplate = (post) => {
+//   return `
+//   <li class="social__comment">
+//   <img
+//       class="social__picture"
+//       src="${post.avatar}"
+//       alt="${post.name}"
+//       width="35" height="35">
+//   <p class="social__text">${post.message}</p>
+// </li>`;
+// }
 
 const showElement = (elem) => {
   return elem.classList.remove('hidden');
@@ -65,4 +65,4 @@ const hideElement = (elem) => {
 }
 
 
-export { getTemplate, showElement, hideElement, createElement, getRandom, getRandomIntInclusive, getRandomArrayElement, getRandomsFrom, getUnicIdFrom }
+export { showElement, hideElement, createElement, getRandom, getRandomIntInclusive, getRandomArrayElement, getRandomsFrom, getUnicIdFrom }

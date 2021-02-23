@@ -16,12 +16,13 @@ const openBigPicture = (post) => {
   const likes = bigPicture.querySelector('.likes-count');
   likes.textContent = post.likes;
 
-
-  const close = bigPicture.querySelector('.big-picture__cancel');
-  close.addEventListener('click', () =>{
+  const onCloseBtnClick = () => {
     hideElement(bigPicture);
-  })
+    closeBtn.removeEventListener('click', onCloseBtnClick)
+  }
 
+  const closeBtn = bigPicture.querySelector('.big-picture__cancel');
+  closeBtn.addEventListener('click', onCloseBtnClick)
   const commentsCount = bigPicture.querySelector('.comments-count');
   commentsCount.textContent = post.comments.length;
 
@@ -29,5 +30,6 @@ const openBigPicture = (post) => {
 
   bigPicture.querySelector('.social__caption').textContent = post.description;
 };
+
 
 export { openBigPicture };
