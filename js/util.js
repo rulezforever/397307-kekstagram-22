@@ -38,4 +38,31 @@ const getUnicIdFrom = (array) => {
   return -1;
 }
 
-export { getRandom, getRandomIntInclusive, getRandomArrayElement, getRandomsFrom, getUnicIdFrom }
+const createElement = (template) => {
+  const newElement = document.createElement('template');
+  newElement.innerHTML = template;
+  return newElement.content.childNodes[1];
+}
+
+// const getTemplate = (post) => {
+//   return `
+//   <li class="social__comment">
+//   <img
+//       class="social__picture"
+//       src="${post.avatar}"
+//       alt="${post.name}"
+//       width="35" height="35">
+//   <p class="social__text">${post.message}</p>
+// </li>`;
+// }
+
+const showElement = (elem) => {
+  return elem.classList.remove('hidden');
+}
+
+const hideElement = (elem) => {
+  return elem.classList.add('hidden');
+}
+
+
+export { showElement, hideElement, createElement, getRandom, getRandomIntInclusive, getRandomArrayElement, getRandomsFrom, getUnicIdFrom }
