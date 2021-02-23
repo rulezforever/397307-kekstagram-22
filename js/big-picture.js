@@ -30,6 +30,7 @@ const openBigPicture = (post) => {
 
 const onCloseBtnClick = () => {
   hideElement(bigPicture);
-  closeBtn.removeEventListener('click', onCloseBtnClick)
+  closeBtn.removeEventListener('click', onCloseBtnClick);
+  body.classList.remove('modal-open');
 }
 export { openBigPicture };
