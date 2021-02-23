@@ -22,3 +22,14 @@ posts.forEach((post) => {
 pictures.appendChild(postFragment);
 
 export { pictures };
+// написал функцию рендера, не пойму теперь куда ее здесь всавлять, что выкинуть или добавить...
+// const renderBigPicture = () => {
+//   const pictureElement = pictureTemplate.cloneNode(true);
+//   const onPhotoClick = (evt) => {
+//     evt.preventDefault();
+//     openBigPicture(post);
+//   }
+//   pictureElement.addEventListener('click', onPhotoClick);
+//   return pictureElement;
+// }
+// postFragment.appendChild(renderBigPicture(post));
