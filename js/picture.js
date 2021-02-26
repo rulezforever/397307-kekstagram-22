@@ -2,7 +2,7 @@ import { posts } from './data.js';
 import { openBigPicture } from './big-picture.js';
 
 const pictures = document.querySelector('.pictures');
-const pictureTemplate = document.querySelector('#picture').content;
+const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
 const renderBigPicture = (post) => {
   const pictureElement = pictureTemplate.cloneNode(true);
@@ -13,9 +13,7 @@ const renderBigPicture = (post) => {
     evt.preventDefault();
     openBigPicture(post);
   }
-  const picture = pictureElement.querySelector('.picture');
-  picture.addEventListener('click', onPhotoClick);
-  //не сработает pictureElement.addEventListener('click', onPhotoClick);
+  pictureElement.addEventListener('click', onPhotoClick);
   return pictureElement;
 }
 

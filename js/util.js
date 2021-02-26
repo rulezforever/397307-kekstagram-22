@@ -44,18 +44,6 @@ const createElement = (template) => {
   return newElement.content.childNodes[1];
 }
 
-// const getTemplate = (post) => {
-//   return `
-//   <li class="social__comment">
-//   <img
-//       class="social__picture"
-//       src="${post.avatar}"
-//       alt="${post.name}"
-//       width="35" height="35">
-//   <p class="social__text">${post.message}</p>
-// </li>`;
-// }
-
 const showElement = (elem) => {
   return elem.classList.remove('hidden');
 }
@@ -64,5 +52,8 @@ const hideElement = (elem) => {
   return elem.classList.add('hidden');
 }
 
+const isEscEvent = (evt) => {
+  return evt.key === ('Escape' || 'Esc');
+};
 
-export { showElement, hideElement, createElement, getRandom, getRandomIntInclusive, getRandomArrayElement, getRandomsFrom, getUnicIdFrom }
+export { isEscEvent, showElement, hideElement, createElement, getRandom, getRandomIntInclusive, getRandomArrayElement, getRandomsFrom, getUnicIdFrom }
