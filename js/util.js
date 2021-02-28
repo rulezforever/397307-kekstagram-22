@@ -1,3 +1,6 @@
+/* global _:readonly */
+const ESCAPE = ('Escape' || 'Esc');
+
 const getRandom = (min, max) => Math.random() * (max - min + 1) + min;
 
 const getRandomIntInclusive = (min, max) => {
@@ -15,7 +18,6 @@ const checkLength = (str, maxLength) => str.length <= maxLength;
 checkLength('hello', 5);
 
 const getRandomArrayElement = (elements) => {
-  // eslint-disable-next-line no-undef
   return elements[_.random(0, elements.length - 1)];
 }
 
@@ -53,7 +55,12 @@ const hideElement = (elem) => {
 }
 
 const isEscEvent = (evt) => {
-  return evt.key === ('Escape' || 'Esc');
+  return evt.key === ESCAPE;
 };
 
-export { isEscEvent, showElement, hideElement, createElement, getRandom, getRandomIntInclusive, getRandomArrayElement, getRandomsFrom, getUnicIdFrom }
+const onPressedKey = (evt, code, callback) => {
+  evt.key === code;
+  callback();
+};
+
+export { ESCAPE, onPressedKey, isEscEvent, showElement, hideElement, createElement, getRandom, getRandomIntInclusive, getRandomArrayElement, getRandomsFrom, getUnicIdFrom }
