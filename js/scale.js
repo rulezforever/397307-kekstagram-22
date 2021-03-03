@@ -10,43 +10,28 @@ ResizeValue.MIN = 25;
 ResizeValue.DEFAULT = 100;
 ResizeValue.MAX = 100;
 
+const SCALE_VALUE = '100%';
+scaleValue.value = SCALE_VALUE;
 
-scaleValue.value = '100%';
-scaleMinus.addEventListener('click', () => {
-  if (parseInt(scaleValue.value) <= ResizeValue.MIN) {
-    return -1;
-  } else {
-    scaleValue.value = parseInt(scaleValue.value) - ResizeValue.STEP + '%';
-    const scaleFloat = (parseInt(scaleValue.value) / 100).toFixed(2);
-    uploadPreview.style.transform = `scale(${scaleFloat})`;
+const changeScale = (value) => {
+  scaleValue.value = `${value}%`;
+  const scaleFloat = (parseInt(value) / 100).toFixed(2);
+  uploadPreview.style.transform = `scale(${scaleFloat})`;
+}
+
+const changeResizeValue = (action) => {
+  const currentValue = parseInt(scaleValue.value);
+
+  const resizedValue = action === 'decrease' ? currentValue - ResizeValue.STEP : currentValue + ResizeValue.STEP;
+  if (resizedValue >= ResizeValue.MIN && resizedValue <= ResizeValue.MAX) {
+    changeScale(resizedValue);
   }
-});
-scalePlus.addEventListener('click', () => {
-  if (parseInt(scaleValue.value) >= ResizeValue.MAX) {
-    return -1;
-  } else {
-    scaleValue.value = parseInt(scaleValue.value) + ResizeValue.STEP + '%';
-    const scaleFloat = (parseInt(scaleValue.value) / 100).toFixed(2);
-    uploadPreview.style.transform = `scale(${scaleFloat})`;
-  }
-});
+}
 
-// const changeResizeValue = () => {
-//   const currentValue = parseInt(scaleValue.value);
+const onMinusBtnClick =  () => changeResizeValue('decrease');
+const onPlusBtnClick = () => changeResizeValue('increase');
 
-//   const resizedValue = currentValue === 'decrease' ? currentValue - ResizeValue.STEP : currentValue + ResizeValue.STEP;  decrease--не понял....
-//   if (resizedValue >= ResizeValue.MIN && resizedValue <= ResizeValue.MAX) {
-//     change(resizedValue);
-//   } else {
-//     return -1;
-//   }
-// }
+scaleMinus.addEventListener('click', onMinusBtnClick);
+scalePlus.addEventListener('click', onPlusBtnClick);
 
-// const change = (value) => {
-//   scaleValue.value = value + '%';
-//   const scaleFloat = (parseInt(value) / 100).toFixed(2);
-//   uploadPreview.style.transform = `scale(${scaleFloat})`;
-// }
-
-// scaleMinus.addEventListener('click', changeResizeValue);
-// scalePlus.addEventListener('click', changeResizeValue);
+export { changeScale, SCALE_VALUE}

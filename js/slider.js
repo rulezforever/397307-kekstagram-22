@@ -1,10 +1,10 @@
 /* global noUiSlider:readonly */
 const EFFECT_LEVEL_VALUE = 80;
 const Slider = {
-  RANGE_MIN : 0,
-  RANGE_MAX : 100,
-  START : 80,
-  STEP : 1,
+  RANGE_MIN: 0,
+  RANGE_MAX: 100,
+  START: 80,
+  STEP: 1,
 }
 
 const sliderElement = document.querySelector('.effect-level__slider');

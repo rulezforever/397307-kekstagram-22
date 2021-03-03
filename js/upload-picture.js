@@ -1,5 +1,5 @@
 import { showElement, hideElement, ESCAPE, onPressedKey } from './util.js';
-import { effectsRadio, onEffectsClick} from './effects.js';
+import { onEffectsClick, effectsList } from './effects.js';
 
 const upload = document.querySelector('#upload-file');
 const changePicture = document.querySelector('.img-upload__overlay');
@@ -8,9 +8,7 @@ const body = document.body;
 
 const openPopup = () => {
 
-  effectsRadio.forEach((effect) => {
-    effect.addEventListener('change', onEffectsClick);
-  });
+  effectsList.addEventListener('change', onEffectsClick);
   document.addEventListener('keydown',onEscPress)
   cancel.addEventListener('click', closePopUp)
   showElement(changePicture);
@@ -23,9 +21,7 @@ const closePopUp = () => {
   upload.value = '';
   document.removeEventListener('keydown',onEscPress)
   cancel.removeEventListener('click', closePopUp)
-  effectsRadio.forEach((effect) => {
-    effect.removeEventListener('change', onEffectsClick);
-  });
+  effectsList.removeEventListener('change', onEffectsClick);
 }
 
 const onEscPress = (evt) => {
