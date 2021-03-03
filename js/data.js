@@ -1,3 +1,5 @@
+/* global _:readonly */
+
 import { getRandomIntInclusive, getUnicIdFrom, getRandomsFrom, getRandomArrayElement} from './util.js';
 
 const POST_COUNT = 25;
@@ -29,7 +31,6 @@ const MESSAGES = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-// eslint-disable-next-line no-undef
 let shuffledIds = _.shuffle(UNIC_IDS);
 
 const createPost = () => {
@@ -44,7 +45,6 @@ const createPost = () => {
   };
 };
 
-// eslint-disable-next-line no-undef
 let shuffledCommentsIds = _.shuffle(UNIC_COMMENTS_IDS);
 
 const createRandomComment = () => {

@@ -1,3 +1,6 @@
+/* global _:readonly */
+const ESCAPE = ('Escape' || 'Esc');
+
 const getRandom = (min, max) => Math.random() * (max - min + 1) + min;
 
 const getRandomIntInclusive = (min, max) => {
@@ -15,7 +18,6 @@ const checkLength = (str, maxLength) => str.length <= maxLength;
 checkLength('hello', 5);
 
 const getRandomArrayElement = (elements) => {
-  // eslint-disable-next-line no-undef
   return elements[_.random(0, elements.length - 1)];
 }
 
@@ -44,18 +46,6 @@ const createElement = (template) => {
   return newElement.content.childNodes[1];
 }
 
-// const getTemplate = (post) => {
-//   return `
-//   <li class="social__comment">
-//   <img
-//       class="social__picture"
-//       src="${post.avatar}"
-//       alt="${post.name}"
-//       width="35" height="35">
-//   <p class="social__text">${post.message}</p>
-// </li>`;
-// }
-
 const showElement = (elem) => {
   return elem.classList.remove('hidden');
 }
@@ -64,5 +54,13 @@ const hideElement = (elem) => {
   return elem.classList.add('hidden');
 }
 
+const isEscEvent = (evt) => {
+  return evt.key === ESCAPE;
+};
 
-export { showElement, hideElement, createElement, getRandom, getRandomIntInclusive, getRandomArrayElement, getRandomsFrom, getUnicIdFrom }
+const onPressedKey = (evt, code, callback) => {
+  evt.key === code;
+  callback();
+};
+
+export { ESCAPE, onPressedKey, isEscEvent, showElement, hideElement, createElement, getRandom, getRandomIntInclusive, getRandomArrayElement, getRandomsFrom, getUnicIdFrom }
