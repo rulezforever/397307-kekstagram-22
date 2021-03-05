@@ -85,14 +85,7 @@ const onEffectsClick = (evt) => {
 
   currentFilter = evt.target.value;
 
-  const allClasses = Array.from(uploadPreview.classList);
-
-  allClasses.forEach(
-    (item) => {
-      if (item !== 'img-upload__preview') {
-        uploadPreview.classList.remove(item);
-      }
-    });
+  uploadPreview.className = 'effects__preview--' + currentFilter;
 
   uploadPreview.classList.add('img-upload__preview');
   sliderElement.classList.add('visually-hidden');

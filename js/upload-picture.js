@@ -25,7 +25,7 @@ const closePopUp = () => {
 }
 
 const onEscPress = (evt) => {
-  onPressedKey(evt, ESCAPE, closePopUp)
+  onPressedKey(evt,ESCAPE,closePopUp)
 }
 
 upload.addEventListener('change', openPopup);
