@@ -34,4 +34,4 @@ const onPlusBtnClick = () => changeResizeValue('increase');
 scaleMinus.addEventListener('click', onMinusBtnClick);
 scalePlus.addEventListener('click', onPlusBtnClick);
 
-export { changeScale, SCALE_VALUE}
+export { changeScale, scaleValue, SCALE_VALUE}
