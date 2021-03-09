@@ -54,13 +54,11 @@ const hideElement = (elem) => {
   return elem.classList.add('hidden');
 }
 
-const isEscEvent = (evt) => {
-  return evt.key === ESCAPE;
+const onPressedKey = (evt,code,callback) => {
+  if (evt.key === code) {
+    evt.preventDefault();
+    callback();
+  }
 };
 
-const onPressedKey = (evt, code, callback) => {
-  evt.key === code;
-  callback();
-};
-
-export { ESCAPE, onPressedKey, isEscEvent, showElement, hideElement, createElement, getRandom, getRandomIntInclusive, getRandomArrayElement, getRandomsFrom, getUnicIdFrom }
+export { ESCAPE, onPressedKey, showElement, hideElement, createElement, getRandom, getRandomIntInclusive, getRandomArrayElement, getRandomsFrom, getUnicIdFrom }
