@@ -40,3 +40,4 @@ const onEscPress = (evt) => {
 
 upload.addEventListener('change', openPopup);
 
+export { openPopup, closePopUp}

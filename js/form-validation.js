@@ -1,3 +1,6 @@
+import { showAlert } from './util.js';
+import {sendData} from './api.js';
+
 const COMMENT_MAX_LENGTH = 140;
 const Tags = {
   MAX_LENGTH: 20,
@@ -69,4 +72,16 @@ const blockEscPress = (evt) => {
 hashtagInput.addEventListener('keydown', blockEscPress);
 comment.addEventListener('keydown', blockEscPress);
 
-export { hashtagInput, comment, blockEscPress }
+
+const setUserFormSubmit = (onSuccess) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    sendData(
+      () => onSuccess(),
+      () => showAlert('Не удалось отправить форму. Попробуйте ещё раз'),
+      new FormData(evt.target),
+    );
+  });
+};
+
+export { hashtagInput, comment, blockEscPress, setUserFormSubmit }
