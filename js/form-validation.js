@@ -1,6 +1,6 @@
 // import { showAlert } from './util.js';
 import {sendData} from './api.js';
-import { showMessage} from './messages.js';
+import { renderError, renderSuccess } from './messages.js';
 
 const COMMENT_MAX_LENGTH = 140;
 const Tags = {
@@ -74,21 +74,15 @@ hashtagInput.addEventListener('keydown', blockEscPress);
 comment.addEventListener('keydown', blockEscPress);
 
 
-const setUserFormSubmit = (closePopUp) => {
+const setUploadFileFormSubmit = () => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     sendData(
-      () => {
-        closePopUp();
-        showMessage('Success');
-      },
-      () => {
-        closePopUp();
-        showMessage('Error');
-      },
+      renderSuccess,
+      renderError,
       new FormData(evt.target),
     );
   });
 };
 
-export { hashtagInput, comment, blockEscPress, setUserFormSubmit }
+export { hashtagInput, comment, blockEscPress, setUploadFileFormSubmit }

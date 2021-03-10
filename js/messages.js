@@ -1,3 +1,4 @@
+import { closePopUp } from './upload-picture.js';
 import { hideElement } from './util.js';
 
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
@@ -28,7 +29,6 @@ const showMessage = (message) => {
       hideElement(errorSection);
       errorButton.removeEventListener('click', closeErrorMessage);
     }
-
     errorButton.addEventListener('click', closeErrorMessage)
   }
   if (message === 'Success') {
@@ -43,4 +43,14 @@ const showMessage = (message) => {
   }
 }
 
-export { showMessage }
+const renderSuccess = () => {
+  showMessage('Success');
+  closePopUp();
+}
+
+const renderError = () => {
+  showMessage('Error');
+  closePopUp();
+}
+
+export { renderSuccess, renderError }
