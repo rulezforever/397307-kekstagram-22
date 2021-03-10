@@ -1,4 +1,5 @@
 import { showAlert } from './util.js';
+// import { showMessage} from './messages.js';
 
 const getData = (onSuccess) => {
   fetch('https://22.javascript.pages.academy/kekstagram/data')
@@ -21,11 +22,11 @@ const sendData = (onSuccess, onFail, body) => {
     if (response.ok) {
       onSuccess();
     } else {
-      onFail('Не удалось отправить форму. Попробуйте ещё раз');
+      onFail();
     }
   })
     .catch(() => {
-      onFail('Не удалось отправить форму. Попробуйте ещё раз');
+      onFail();
     });
 };
 

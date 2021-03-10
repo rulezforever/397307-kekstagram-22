@@ -1,5 +1,6 @@
-import { showAlert } from './util.js';
+// import { showAlert } from './util.js';
 import {sendData} from './api.js';
+import { showMessage} from './messages.js';
 
 const COMMENT_MAX_LENGTH = 140;
 const Tags = {
@@ -73,12 +74,18 @@ hashtagInput.addEventListener('keydown', blockEscPress);
 comment.addEventListener('keydown', blockEscPress);
 
 
-const setUserFormSubmit = (onSuccess) => {
+const setUserFormSubmit = (closePopUp) => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     sendData(
-      () => onSuccess(),
-      () => showAlert('Не удалось отправить форму. Попробуйте ещё раз'),
+      () => {
+        closePopUp();
+        showMessage('Success');
+      },
+      () => {
+        closePopUp();
+        showMessage('Error');
+      },
       new FormData(evt.target),
     );
   });
