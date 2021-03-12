@@ -22,6 +22,7 @@ const renderPictures = (posts) => {
   posts.forEach((post) => {
     postFragment.appendChild(renderBigPicture(post));
   });
+  pictures.innerHTML = '';
   pictures.appendChild(postFragment);
 }
 
