@@ -1,3 +1,7 @@
+// import { showAlert } from './util.js';
+import {sendData} from './api.js';
+import { renderError, renderSuccess } from './messages.js';
+
 const COMMENT_MAX_LENGTH = 140;
 const Tags = {
   MAX_LENGTH: 20,
@@ -10,18 +14,6 @@ const form = document.querySelector('.img-upload__form');
 const hashtagInput = form.querySelector('.text__hashtags');
 const symbolsPattern = /^[0-9A-Za-zА-Яа-я]+$/;
 const comment = form.querySelector('.text__description');
-
-const isDuplicateIn  = (array) => {
-  let sorted = array.sort();
-  let isDuplicate = false;
-  for (let i = 0; i < array.length; i += 1) {
-    isDuplicate = sorted[i + 1] === sorted[i];
-    if (isDuplicate) {
-      break;
-    }
-  }
-  return isDuplicate;
-}
 
 const onHashtagInput = () => {
   const hashtags = hashtagInput.value.trim().toLowerCase().split(' ');
@@ -40,7 +32,7 @@ const onHashtagInput = () => {
         hashtagInput.setCustomValidity(`максимальная длина одного хэш-тега ${Tags.MAX_LENGTH} символов, включая решётку`);
       } else if (hashtag.indexOf(Tags.SYMBOL, 1) >= 1) {
         hashtagInput.setCustomValidity('хэш-теги разделяются пробелами');
-      } else if (isDuplicateIn(hashtags)) {
+      } else if (hashtags.length !== new Set(hashtags).size) {
         hashtagInput.setCustomValidity('один и тот же хэш-тег не может быть использован дважды');
       } else {
         hashtagInput.setCustomValidity('');
@@ -69,4 +61,16 @@ const blockEscPress = (evt) => {
 hashtagInput.addEventListener('keydown', blockEscPress);
 comment.addEventListener('keydown', blockEscPress);
 
-export { hashtagInput, comment, blockEscPress }
+
+const setUploadFileFormSubmit = () => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    sendData(
+      renderSuccess,
+      renderError,
+      new FormData(evt.target),
+    );
+  });
+};
+
+export { hashtagInput, comment, blockEscPress, setUploadFileFormSubmit }

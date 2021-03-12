@@ -1,4 +1,3 @@
-import { posts } from './data.js';
 import { openBigPicture } from './big-picture.js';
 
 const pictures = document.querySelector('.pictures');
@@ -17,7 +16,7 @@ const renderBigPicture = (post) => {
   return pictureElement;
 }
 
-const renderPictures = () => {
+const renderPictures = (posts) => {
   const postFragment = document.createDocumentFragment();
 
   posts.forEach((post) => {
@@ -25,5 +24,5 @@ const renderPictures = () => {
   });
   pictures.appendChild(postFragment);
 }
-renderPictures();
 
+export { renderPictures }

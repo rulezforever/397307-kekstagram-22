@@ -32,6 +32,8 @@ const closePopUp = () => {
   scaleValue.value = SCALE_VALUE;
   uploadPreview.style.transform = 'none';
   sliderElement.classList.add('visually-hidden');
+  hashtagInput.value = '';
+  comment.value ='';
 }
 
 const onEscPress = (evt) => {
@@ -40,3 +42,4 @@ const onEscPress = (evt) => {
 
 upload.addEventListener('change', openPopup);
 
+export { openPopup, closePopUp}
