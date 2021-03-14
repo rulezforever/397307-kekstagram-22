@@ -12,7 +12,6 @@ import { renderPictures } from './picture.js';
 getData((posts) => {
   renderPictures(posts);
   filter.classList.remove('img-filters--inactive');
-  // renderPictures(updateFilter(posts));
   filterForm.addEventListener('click', (evt) => {
     onFilterClick(evt, posts);
   });

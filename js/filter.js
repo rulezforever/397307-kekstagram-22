@@ -33,8 +33,8 @@ const onFilterClick = (evt, posts) => {
       activeElement.classList.remove('img-filters__button--active');
     }
     evt.target.classList.add('img-filters__button--active');
-    renderPictures(updateFilter(posts));
-    // _.debounce(renderPictures(updateFilter(posts)), DELAY);
+    const debounceRender = _.debounce(renderPictures, DELAY);
+    debounceRender(updateFilter(posts));
   }
 }
 
