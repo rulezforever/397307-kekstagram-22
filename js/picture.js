@@ -15,6 +15,9 @@ const renderBigPicture = (post) => {
   pictureElement.addEventListener('click', onPhotoClick);
   return pictureElement;
 }
+const clearPictures = () => {
+  document.querySelectorAll('.picture').forEach(element => element.remove());
+}
 
 const renderPictures = (posts) => {
   const postFragment = document.createDocumentFragment();
@@ -22,6 +25,7 @@ const renderPictures = (posts) => {
   posts.forEach((post) => {
     postFragment.appendChild(renderBigPicture(post));
   });
+  clearPictures();
   pictures.appendChild(postFragment);
 }
 
