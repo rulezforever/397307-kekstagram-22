@@ -16,26 +16,31 @@ const updateFilter = (array) => {
 
   const filterTypes = {
     'filter-default': setDefaultPosts(array),
-    'filter-random':  setRandomPosts(array),
+    'filter-random': setRandomPosts(array),
     'filter-discussed': setDiscussedPosts(array),
   }
 
-  let filterType = filterTypes[filterForm.querySelector('.img-filters__button--active').id];
-  return filterType;
+  return filterTypes[filterForm.querySelector('.img-filters__button--active').id];
 }
 
 const onFilterClick = (evt, posts) => {
   if (!evt.target.classList.contains('img-filters__button')) {
     return;
-  } else {
-    let activeElement = evt.target.parentElement.querySelector('.img-filters__button--active');
-    if (activeElement) {
-      activeElement.classList.remove('img-filters__button--active');
-    }
-    evt.target.classList.add('img-filters__button--active');
-    const debounceRender = _.debounce(renderPictures, DELAY);
-    debounceRender(updateFilter(posts));
   }
+  let activeElement = evt.target.parentElement.querySelector('.img-filters__button--active');
+  if (activeElement) {
+    activeElement.classList.remove('img-filters__button--active');
+  }
+  evt.target.classList.add('img-filters__button--active');
+  const debounceRender = _.debounce(renderPictures, DELAY);
+  debounceRender(updateFilter(posts));
 }
 
-export { filter, filterForm, updateFilter, onFilterClick }
+const setFilter = (posts) => {
+  filter.classList.remove('img-filters--inactive');
+  filterForm.addEventListener('click', (evt) => {
+    onFilterClick(evt, posts);
+  });
+}
+
+export { setFilter }
