@@ -9,10 +9,9 @@ const createComments = (post) => {
   post.comments.forEach((post) => {
     commentFragment.appendChild(createElement(getTemplate(post)));
     updateCommentsCount(post.comments);
-    // console.log(post.comments)
   })
   commentsList.appendChild(commentFragment);
-
+  // updateCommentsCount(post.comments);
 }
 
 const getTemplate = (post) => {

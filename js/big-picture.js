@@ -36,23 +36,20 @@ const onCloseBtnClick = () => {
 
 
 const updateCommentsCount = (comments) => {
-  const displayedComments = bigPicture.querySelectorAll('.social__comment:not(.visually-hidden)').length;
-  commentCount.textContent = `${displayedComments}  из ${ comments.length}  комментариев`;
+  const displayedComments = commentsList.querySelectorAll('li:not(.visually-hidden)').length;
+  commentCount.textContent = `${displayedComments}`;
+  console.log(displayedComments);
 }
 
-// const comment = document.querySelector('.social__comment');
 const commentsList = document.querySelector('.social__comments');
 const COMMENT_STEP = 5;
 const onLoadMoreClick = (evt) => {
   const hiddenComments = commentsList.querySelectorAll('.visually-hidden');
   const hiddenCommentsArray = Array.from(hiddenComments);
-  console.log(hiddenCommentsArray);
   hiddenCommentsArray.slice(0, COMMENT_STEP).forEach((item) => {
     item.classList.remove('visually-hidden')
   });
-  // const container = document.querySelector('.social__comments');
-  // // showElement(evt.target)
-  if (!commentsList.querySelectorAll('social__comment.visually-hidden')) {
+  if (commentsList.querySelectorAll('li.visually-hidden').length === 0) {
     hideElement(evt.target)
   }
 }
