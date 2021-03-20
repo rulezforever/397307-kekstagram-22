@@ -1,5 +1,5 @@
 import { createElement } from './util.js';
-import { updateCommentsCount } from './big-picture.js';
+
 
 const createComments = (post) => {
   const commentsList = document.querySelector('.social__comments');
@@ -8,10 +8,8 @@ const createComments = (post) => {
   const commentFragment = document.createDocumentFragment();
   post.comments.forEach((post) => {
     commentFragment.appendChild(createElement(getTemplate(post)));
-    updateCommentsCount(post.comments);
-  })
+  });
   commentsList.appendChild(commentFragment);
-  // updateCommentsCount(post.comments);
 }
 
 const getTemplate = (post) => {

@@ -1,31 +1,39 @@
-import { showElement, hideElement} from './util.js';
-import { createComments} from './comments.js';
+import { showElement, hideElement } from './util.js';
+import { createComments } from './comments.js';
+
+const COMMENT_STEP = 5;
 
 const bigPicture = document.querySelector('.big-picture');
 const body = document.body;
-const commentCount = document.querySelector('.social__comment-count');
 const commentsLoader = document.querySelector('.comments-loader');
 const closeBtn = bigPicture.querySelector('.big-picture__cancel');
+const socialCommentCount = bigPicture.querySelector('.social__comment-count');
+
 const commentsCount = bigPicture.querySelector('.comments-count');
+const commentsList = bigPicture.querySelector('.social__comments');
+const loadMoreBtn = bigPicture.querySelector('.social__comments-loader');
+
+const updateCommentsCount = () => {
+  const displayedComments = commentsList.querySelectorAll('li:not(.visually-hidden)');
+  const allComments = commentsList.querySelectorAll('li');
+  socialCommentCount.textContent = `${displayedComments.length} из ${allComments.length} комментариев`;
+}
 
 const openBigPicture = (post) => {
-  showElement(bigPicture);
-  // hideElement(commentCount);
-  // hideElement(commentsLoader);
+  const likes = bigPicture.querySelector('.likes-count');
   body.classList.add('modal-open');
 
   bigPicture.querySelector('.big-picture__img img').src = post.url;
-
-  const likes = bigPicture.querySelector('.likes-count');
   likes.textContent = post.likes;
-
-  closeBtn.addEventListener('click', onCloseBtnClick)
-
   commentsCount.textContent = post.comments.length;
+  bigPicture.querySelector('.social__caption').textContent = post.description;
 
   createComments(post);
+  showComments();
+  updateCommentsCount();
+  showElement(bigPicture);
 
-  bigPicture.querySelector('.social__caption').textContent = post.description;
+  closeBtn.addEventListener('click', onCloseBtnClick)
 };
 
 const onCloseBtnClick = () => {
@@ -34,25 +42,19 @@ const onCloseBtnClick = () => {
   body.classList.remove('modal-open');
 }
 
-
-const updateCommentsCount = (comments) => {
-  const displayedComments = commentsList.querySelectorAll('li:not(.visually-hidden)').length;
-  commentCount.textContent = `${displayedComments}`;
-  console.log(displayedComments);
-}
-
-const commentsList = document.querySelector('.social__comments');
-const COMMENT_STEP = 5;
-const onLoadMoreClick = (evt) => {
+const showComments = () => {
   const hiddenComments = commentsList.querySelectorAll('.visually-hidden');
   const hiddenCommentsArray = Array.from(hiddenComments);
   hiddenCommentsArray.slice(0, COMMENT_STEP).forEach((item) => {
     item.classList.remove('visually-hidden')
   });
-  if (commentsList.querySelectorAll('li.visually-hidden').length === 0) {
-    hideElement(evt.target)
-  }
+  commentsList.querySelectorAll('li.visually-hidden').length === 0 ? hideElement(loadMoreBtn) : showElement(loadMoreBtn);
+}
+
+const onLoadMoreClick = () => {
+  showComments();
+  updateCommentsCount();
 }
 
 commentsLoader.addEventListener('click', onLoadMoreClick);
-export { openBigPicture, updateCommentsCount };
+export { openBigPicture };
