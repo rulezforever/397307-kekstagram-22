@@ -1,20 +1,18 @@
-import { showElement, hideElement } from './util.js';
-import { createComments } from './comments.js';
+import { showElement, hideElement, onPressedKey, ESCAPE } from './util.js';
+import { createComments, showComments } from './comments.js';
 
-const COMMENT_STEP = 5;
+const VISUALLY_HIDDEN = 'visually-hidden';
 
 const bigPicture = document.querySelector('.big-picture');
 const body = document.body;
 const commentsLoader = document.querySelector('.comments-loader');
 const closeBtn = bigPicture.querySelector('.big-picture__cancel');
 const socialCommentCount = bigPicture.querySelector('.social__comment-count');
-
 const commentsCount = bigPicture.querySelector('.comments-count');
 const commentsList = bigPicture.querySelector('.social__comments');
-const loadMoreBtn = bigPicture.querySelector('.social__comments-loader');
 
 const updateCommentsCount = () => {
-  const displayedComments = commentsList.querySelectorAll('li:not(.visually-hidden)');
+  const displayedComments = commentsList.querySelectorAll(`li:not(.${VISUALLY_HIDDEN})`);
   const allComments = commentsList.querySelectorAll('li');
   socialCommentCount.textContent = `${displayedComments.length} из ${allComments.length} комментариев`;
 }
@@ -33,22 +31,15 @@ const openBigPicture = (post) => {
   updateCommentsCount();
   showElement(bigPicture);
 
-  closeBtn.addEventListener('click', onCloseBtnClick)
+  closeBtn.addEventListener('click', onCloseBtnClick);
+  document.addEventListener('keydown',onEscPress);
 };
 
 const onCloseBtnClick = () => {
   hideElement(bigPicture);
   closeBtn.removeEventListener('click', onCloseBtnClick);
   body.classList.remove('modal-open');
-}
-
-const showComments = () => {
-  const hiddenComments = commentsList.querySelectorAll('.visually-hidden');
-  const hiddenCommentsArray = Array.from(hiddenComments);
-  hiddenCommentsArray.slice(0, COMMENT_STEP).forEach((item) => {
-    item.classList.remove('visually-hidden')
-  });
-  commentsList.querySelectorAll('li.visually-hidden').length === 0 ? hideElement(loadMoreBtn) : showElement(loadMoreBtn);
+  document.removeEventListener('keydown',onEscPress);
 }
 
 const onLoadMoreClick = () => {
@@ -57,4 +48,9 @@ const onLoadMoreClick = () => {
 }
 
 commentsLoader.addEventListener('click', onLoadMoreClick);
+
+const onEscPress = (evt) => {
+  onPressedKey(evt,ESCAPE,onCloseBtnClick);
+}
+
 export { openBigPicture };

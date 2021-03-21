@@ -12,8 +12,8 @@ const body = document.body;
 const openPopup = () => {
 
   effectsList.addEventListener('change', onEffectsClick);
-  document.addEventListener('keydown',onEscPress)
-  cancel.addEventListener('click', closePopUp)
+  document.addEventListener('keydown',onEscPress);
+  cancel.addEventListener('click', closePopUp);
   showElement(changePicture);
   body.classList.add('modal-open');
 }
@@ -22,8 +22,8 @@ const closePopUp = () => {
   hideElement(changePicture);
   body.classList.remove('modal-open');
   upload.value = '';
-  document.removeEventListener('keydown',onEscPress)
-  cancel.removeEventListener('click', closePopUp)
+  document.removeEventListener('keydown',onEscPress);
+  cancel.removeEventListener('click', closePopUp);
   effectsList.removeEventListener('change', onEffectsClick);
   hashtagInput.removeEventListener('keydown', blockEscPress);
   comment.removeEventListener('keydown', blockEscPress);
@@ -37,7 +37,7 @@ const closePopUp = () => {
 }
 
 const onEscPress = (evt) => {
-  onPressedKey(evt,ESCAPE,closePopUp)
+  onPressedKey(evt,ESCAPE,closePopUp);
 }
 
 upload.addEventListener('change', openPopup);
