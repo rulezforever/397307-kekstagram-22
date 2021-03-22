@@ -1,45 +1,45 @@
 import { showElement, hideElement, ESCAPE, onPressedKey } from './util.js';
-import { onEffectsClick, effectsList, uploadPreview } from './effects.js';
-import { scaleValue, SCALE_VALUE } from './scale.js';
+import { onEffectsClick, effectsListElement, uploadPreviewElement } from './effects.js';
+import { scaleValueElement, SCALE_VALUE } from './scale.js';
 import { sliderElement } from './slider.js';
-import { hashtagInput, comment, blockEscPress } from './form-validation.js';
+import { hashtagInputElement, commentElement, onEscPressBlock } from './form-validation.js';
+import { bodyElement } from './big-picture.js';
 
-const upload = document.querySelector('#upload-file');
-const changePicture = document.querySelector('.img-upload__overlay');
-const cancel = document.querySelector('#upload-cancel');
-const body = document.body;
+const uploadElement = document.querySelector('#upload-file');
+const changePictureElement = document.querySelector('.img-upload__overlay');
+const cancelElement = document.querySelector('#upload-cancel');
 
-const openPopup = () => {
+const onPopupOpen = () => {
 
-  effectsList.addEventListener('change', onEffectsClick);
-  document.addEventListener('keydown',onEscPress)
-  cancel.addEventListener('click', closePopUp)
-  showElement(changePicture);
-  body.classList.add('modal-open');
+  effectsListElement.addEventListener('change', onEffectsClick);
+  document.addEventListener('keydown', onEscPress);
+  cancelElement.addEventListener('click', onPopupClose);
+  showElement(changePictureElement );
+  bodyElement.classList.add('modal-open');
 }
 
-const closePopUp = () => {
-  hideElement(changePicture);
-  body.classList.remove('modal-open');
-  upload.value = '';
-  document.removeEventListener('keydown',onEscPress)
-  cancel.removeEventListener('click', closePopUp)
-  effectsList.removeEventListener('change', onEffectsClick);
-  hashtagInput.removeEventListener('keydown', blockEscPress);
-  comment.removeEventListener('keydown', blockEscPress);
-  uploadPreview.className = 'img-upload__preview';
-  uploadPreview.style.filter = 'none';
-  scaleValue.value = SCALE_VALUE;
-  uploadPreview.style.transform = 'none';
+const onPopupClose = () => {
+  hideElement(changePictureElement );
+  bodyElement.classList.remove('modal-open');
+  uploadElement.value = '';
+  document.removeEventListener('keydown', onEscPress);
+  cancelElement.removeEventListener('click', onPopupClose);
+  effectsListElement.removeEventListener('change', onEffectsClick);
+  hashtagInputElement.removeEventListener('keydown', onEscPressBlock);
+  commentElement.removeEventListener('keydown', onEscPressBlock);
+  uploadPreviewElement.className = 'img-upload__preview';
+  uploadPreviewElement.style.filter = 'none';
+  scaleValueElement.value = SCALE_VALUE;
+  uploadPreviewElement.style.transform = 'none';
   sliderElement.classList.add('visually-hidden');
-  hashtagInput.value = '';
-  comment.value ='';
+  hashtagInputElement.value = '';
+  commentElement.value ='';
 }
 
 const onEscPress = (evt) => {
-  onPressedKey(evt,ESCAPE,closePopUp)
+  onPressedKey(evt, ESCAPE, onPopupClose);
 }
 
-upload.addEventListener('change', openPopup);
+uploadElement.addEventListener('change', onPopupOpen);
 
-export { openPopup, closePopUp}
+export { onPopupClose }

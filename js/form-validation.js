@@ -1,4 +1,3 @@
-// import { showAlert } from './util.js';
 import {sendData} from './api.js';
 import { renderError, renderSuccess } from './messages.js';
 
@@ -10,60 +9,60 @@ const Tags = {
   SYMBOL: '#',
 };
 
-const form = document.querySelector('.img-upload__form');
-const hashtagInput = form.querySelector('.text__hashtags');
+const formElement = document.querySelector('.img-upload__form');
+const hashtagInputElement = formElement.querySelector('.text__hashtags');
 const symbolsPattern = /^[0-9A-Za-zА-Яа-я]+$/;
-const comment = form.querySelector('.text__description');
+const commentElement = formElement.querySelector('.text__description');
 
 const onHashtagInput = () => {
-  const hashtags = hashtagInput.value.trim().toLowerCase().split(' ');
+  const hashtags = hashtagInputElement.value.trim().toLowerCase().split(' ');
   if (hashtags.length > Tags.MAX_COUNT) {
-    hashtagInput.setCustomValidity('нельзя указать больше пяти хэш-тегов');
+    hashtagInputElement.setCustomValidity('нельзя указать больше пяти хэш-тегов');
     return;
   } else {
     hashtags.some((hashtag) => {
       if (hashtag[0] !== Tags.SYMBOL) {
-        hashtagInput.setCustomValidity('хэш-тег должен начинаться с символа # (решётка)');
+        hashtagInputElement.setCustomValidity('хэш-тег должен начинаться с символа # (решётка)');
       } else if (hashtag.length < Tags.MIN) {
-        hashtagInput.setCustomValidity('хеш-тег не может состоять только из одной решётки');
+        hashtagInputElement.setCustomValidity('хеш-тег не может состоять только из одной решётки');
       } else if (!symbolsPattern.test(hashtag.slice(1))) {
-        hashtagInput.setCustomValidity('строка после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.');
+        hashtagInputElement.setCustomValidity('строка после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.');
       } else if (hashtag.length > Tags.MAX_LENGTH) {
-        hashtagInput.setCustomValidity(`максимальная длина одного хэш-тега ${Tags.MAX_LENGTH} символов, включая решётку`);
+        hashtagInputElement.setCustomValidity(`максимальная длина одного хэш-тега ${Tags.MAX_LENGTH} символов, включая решётку`);
       } else if (hashtag.indexOf(Tags.SYMBOL, 1) >= 1) {
-        hashtagInput.setCustomValidity('хэш-теги разделяются пробелами');
+        hashtagInputElement.setCustomValidity('хэш-теги разделяются пробелами');
       } else if (hashtags.length !== new Set(hashtags).size) {
-        hashtagInput.setCustomValidity('один и тот же хэш-тег не может быть использован дважды');
+        hashtagInputElement.setCustomValidity('один и тот же хэш-тег не может быть использован дважды');
       } else {
-        hashtagInput.setCustomValidity('');
+        hashtagInputElement.setCustomValidity('');
       }
     });
   }
-  hashtagInput.reportValidity();
+  hashtagInputElement.reportValidity();
 }
 
 const onCommentInput = () => {
-  if (comment.value.length > COMMENT_MAX_LENGTH) {
-    comment.setCustomValidity('длина комментария не может составлять больше 140 символов');
+  if (commentElement.value.length > COMMENT_MAX_LENGTH) {
+    commentElement.setCustomValidity('длина комментария не может составлять больше 140 символов');
     return;
   }
-  comment.setCustomValidity('');
-  comment.reportValidity();
+  commentElement.setCustomValidity('');
+  commentElement.reportValidity();
 }
 
-hashtagInput.addEventListener('input', onHashtagInput);
-comment.addEventListener('input', onCommentInput);
+hashtagInputElement.addEventListener('input', onHashtagInput);
+commentElement.addEventListener('input', onCommentInput);
 
-const blockEscPress = (evt) => {
+const onEscPressBlock = (evt) => {
   evt.stopPropagation();
 }
 
-hashtagInput.addEventListener('keydown', blockEscPress);
-comment.addEventListener('keydown', blockEscPress);
+hashtagInputElement.addEventListener('keydown', onEscPressBlock);
+commentElement.addEventListener('keydown', onEscPressBlock);
 
 
 const setUploadFileFormSubmit = () => {
-  form.addEventListener('submit', (evt) => {
+  formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
     sendData(
       renderSuccess,
@@ -73,4 +72,4 @@ const setUploadFileFormSubmit = () => {
   });
 };
 
-export { hashtagInput, comment, blockEscPress, setUploadFileFormSubmit }
+export { hashtagInputElement, commentElement, onEscPressBlock, setUploadFileFormSubmit }
