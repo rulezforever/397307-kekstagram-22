@@ -51,26 +51,25 @@ const Effects = {
   },
 };
 
-const uploadPreview = document.querySelector('.img-upload__preview');
-const effectsRadio = document.querySelectorAll('.effects__radio');
-const effectsList = document.querySelector('.effects__list');
+const uploadPreviewElement = document.querySelector('.img-upload__preview');
+const effectsListElement = document.querySelector('.effects__list');
 
 const previewCssFilterUpdate = () => {
   switch (currentFilter) {
     case 'chrome':
-      uploadPreview.style.filter = `grayscale(${valueElement.value})`;
+      uploadPreviewElement.style.filter = `grayscale(${valueElement.value})`;
       break;
     case 'sepia':
-      uploadPreview.style.filter = `sepia(${valueElement.value})`;
+      uploadPreviewElement.style.filter = `sepia(${valueElement.value})`;
       break;
     case 'marvin':
-      uploadPreview.style.filter = `invert(${valueElement.value}${Effects.marvin.UNITS})`;
+      uploadPreviewElement.style.filter = `invert(${valueElement.value}${Effects.marvin.UNITS})`;
       break;
     case 'phobos':
-      uploadPreview.style.filter = `blur(${valueElement.value}${Effects.phobos.UNITS})`;
+      uploadPreviewElement.style.filter = `blur(${valueElement.value}${Effects.phobos.UNITS})`;
       break;
     case 'heat':
-      uploadPreview.style.filter = `brightness(${valueElement.value})`;
+      uploadPreviewElement.style.filter = `brightness(${valueElement.value})`;
       break;
   }
 };
@@ -85,15 +84,15 @@ const onEffectsClick = (evt) => {
 
   currentFilter = evt.target.value;
 
-  uploadPreview.className = 'effects__preview--' + currentFilter;
+  uploadPreviewElement.className = 'effects__preview--' + currentFilter;
 
-  uploadPreview.classList.add('img-upload__preview');
+  uploadPreviewElement.classList.add('img-upload__preview');
   sliderElement.classList.add('visually-hidden');
-  uploadPreview.style.filter = 'none';
+  uploadPreviewElement.style.filter = 'none';
 
   if (currentFilter !== 'none') {
     sliderElement.classList.remove('visually-hidden');
-    uploadPreview.classList.add('effects__preview--' + currentFilter);
+    uploadPreviewElement.classList.add('effects__preview--' + currentFilter);
   }
 
   const newEffect = getEffect(currentFilter);
@@ -116,4 +115,4 @@ sliderElement.noUiSlider.on('update',
     previewCssFilterUpdate();
   });
 
-export { Effects, uploadPreview, effectsRadio, onEffectsClick, effectsList };
+export { Effects, uploadPreviewElement, effectsListElement, onEffectsClick };

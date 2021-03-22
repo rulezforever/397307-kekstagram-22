@@ -1,68 +1,68 @@
-import { closePopUp } from './upload-picture.js';
+import { onPopupClose } from './upload-picture.js';
 import { ESCAPE, hideElement, onPressedKey } from './util.js';
 
-const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
-const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
-const main = document.querySelector('main');
+const successMessageTemplateElement = document.querySelector('#success').content.querySelector('.success');
+const errorMessageTemplateElement = document.querySelector('#error').content.querySelector('.error');
+const mainElement = document.querySelector('main');
 
 const getSuccessMessageFragment = () => {
-  const successMessageElement = successMessageTemplate.cloneNode(true);
+  const successMessageElement = successMessageTemplateElement.cloneNode(true);
   const successMessageFragment = document.createDocumentFragment();
   successMessageFragment.appendChild(successMessageElement);
   return successMessageFragment;
 }
 
 const getErrorMessageFragment = () => {
-  const errorMessageElement = errorMessageTemplate.cloneNode(true);
+  const errorMessageElement = errorMessageTemplateElement.cloneNode(true);
   const errorMessageFragment = document.createDocumentFragment();
   errorMessageFragment.appendChild(errorMessageElement);
   return errorMessageFragment;
 }
 
-const closeSuccessByEsc = (evt) => {
-  onPressedKey(evt,ESCAPE,closeSuccessMessage)
+const onSuccessCloseByEsc = (evt) => {
+  onPressedKey(evt,ESCAPE,onSuccessMessageClose)
 }
 
-const closeErrorByEsc = (evt) => {
-  onPressedKey(evt,ESCAPE,closeErrorMessage)
+const onErrorCloseByEsc = (evt) => {
+  onPressedKey(evt,ESCAPE,onErrorMessageClose)
 }
 
-const closeMessageByEmptyClick = (evt) => {
+const onMessageCloseByEmptyClick = (evt) => {
   if (evt.target === document.querySelector('.success')) {
-    closeSuccessMessage();
+    onSuccessMessageClose();
   }
   if (evt.target === document.querySelector('.error')) {
-    closeErrorMessage();
+    onErrorMessageClose();
   }
 }
-const closeSuccessMessage = () => {
+const onSuccessMessageClose = () => {
   hideElement(document.querySelector('.success'));
-  document.querySelector('.success__button').removeEventListener('click', closeSuccessMessage);
-  document.removeEventListener('keydown', closeSuccessByEsc);
-  document.removeEventListener('click', closeMessageByEmptyClick);
+  document.querySelector('.success__button').removeEventListener('click', onSuccessMessageClose);
+  document.removeEventListener('keydown', onSuccessCloseByEsc);
+  document.removeEventListener('click', onMessageCloseByEmptyClick);
 }
 
 const renderSuccess = () => {
-  main.appendChild(getSuccessMessageFragment());
-  document.querySelector('.success__button').addEventListener('click', closeSuccessMessage);
-  closePopUp();
-  document.addEventListener('keydown', closeErrorByEsc);
-  document.addEventListener('click', closeMessageByEmptyClick);
+  mainElement.appendChild(getSuccessMessageFragment());
+  document.querySelector('.success__button').addEventListener('click', onSuccessMessageClose);
+  onPopupClose();
+  document.addEventListener('keydown', onSuccessCloseByEsc);
+  document.addEventListener('click', onMessageCloseByEmptyClick);
 }
 
-const closeErrorMessage = () => {
+const onErrorMessageClose = () => {
   hideElement(document.querySelector('.error'));
-  document.querySelector('.error__button').removeEventListener('click', closeErrorMessage);
-  document.removeEventListener('keydown', closeErrorByEsc);
-  document.removeEventListener('click', closeMessageByEmptyClick);
+  document.querySelector('.error__button').removeEventListener('click', onErrorMessageClose);
+  document.removeEventListener('keydown', onErrorCloseByEsc);
+  document.removeEventListener('click', onMessageCloseByEmptyClick);
 }
 
 const renderError = () => {
-  main.appendChild(getErrorMessageFragment());
-  document.querySelector('.error__button').addEventListener('click', closeErrorMessage);
-  closePopUp();
-  document.addEventListener('keydown', closeErrorByEsc);
-  document.addEventListener('click', closeMessageByEmptyClick);
+  mainElement.appendChild(getErrorMessageFragment());
+  document.querySelector('.error__button').addEventListener('click', onErrorMessageClose);
+  onPopupClose();
+  document.addEventListener('keydown', onErrorCloseByEsc);
+  document.addEventListener('click', onMessageCloseByEmptyClick);
 }
 
 export { renderSuccess, renderError }

@@ -1,10 +1,10 @@
 import { openBigPicture } from './big-picture.js';
 
-const pictures = document.querySelector('.pictures');
-const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const picturesElement = document.querySelector('.pictures');
+const pictureTemplateElement = document.querySelector('#picture').content.querySelector('.picture');
 
 const renderBigPicture = (post) => {
-  const pictureElement = pictureTemplate.cloneNode(true);
+  const pictureElement = pictureTemplateElement.cloneNode(true);
   pictureElement.querySelector('.picture__img').src = post.url;
   pictureElement.querySelector('.picture__likes').textContent = post.likes;
   pictureElement.querySelector('.picture__comments').textContent = post.comments.length;
@@ -26,7 +26,7 @@ const renderPictures = (posts) => {
     postFragment.appendChild(renderBigPicture(post));
   });
   clearPictures();
-  pictures.appendChild(postFragment);
+  picturesElement.appendChild(postFragment);
 }
 
 export { renderPictures }

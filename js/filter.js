@@ -5,8 +5,8 @@ import { renderPictures } from './picture.js';
 const DELAY = 500;
 const RANDOM_PICTURES_QUANTITY = 10;
 
-const filter = document.querySelector('.img-filters');
-const filterForm = document.querySelector('.img-filters__form');
+const filterElement = document.querySelector('.img-filters');
+const filterFormElement = document.querySelector('.img-filters__form');
 
 const setDefaultPosts = (array) => array.slice();
 const setRandomPosts = (array) => _.shuffle(array).slice(0, RANDOM_PICTURES_QUANTITY);
@@ -20,7 +20,7 @@ const updateFilter = (array) => {
     'filter-discussed': setDiscussedPosts(array),
   }
 
-  return filterTypes[filterForm.querySelector('.img-filters__button--active').id];
+  return filterTypes[filterFormElement.querySelector('.img-filters__button--active').id];
 }
 
 const onFilterClick = (evt, posts) => {
@@ -37,8 +37,8 @@ const onFilterClick = (evt, posts) => {
 }
 
 const setFilter = (posts) => {
-  filter.classList.remove('img-filters--inactive');
-  filterForm.addEventListener('click', (evt) => {
+  filterElement.classList.remove('img-filters--inactive');
+  filterFormElement.addEventListener('click', (evt) => {
     onFilterClick(evt, posts);
   });
 }
