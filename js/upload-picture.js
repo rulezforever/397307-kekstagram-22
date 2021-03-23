@@ -5,6 +5,8 @@ import { sliderElement } from './slider.js';
 import { hashtagInputElement, commentElement, onEscPressBlock } from './form-validation.js';
 import { bodyElement } from './big-picture.js';
 
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+const previewElement = document.querySelector('.img-upload__img');
 const uploadElement = document.querySelector('#upload-file');
 const changePictureElement = document.querySelector('.img-upload__overlay');
 const cancelElement = document.querySelector('#upload-cancel');
@@ -16,6 +18,20 @@ const onPopupOpen = () => {
   cancelElement.addEventListener('click', onPopupClose);
   showElement(changePictureElement );
   bodyElement.classList.add('modal-open');
+  const file = uploadElement.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((it) => {
+    return fileName.endsWith(it);
+  });
+
+  if (matches) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      previewElement.src = reader.result;
+    });
+    reader.readAsDataURL(file);
+  }
 }
 
 const onPopupClose = () => {
