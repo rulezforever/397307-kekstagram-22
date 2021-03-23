@@ -5,12 +5,8 @@
 *.pdf
 *.psd
 *.sublime*
-build/css
-build/fonts
-build/img
-build/nouislider
-build/photos
-build/favicon.ico
+build/main.bundle.js
+build/main.bundle.js.map
 node_modules/
 npm-debug.log*
 Thumbs.db
