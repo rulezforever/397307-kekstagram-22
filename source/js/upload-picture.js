@@ -12,7 +12,6 @@ const changePictureElement = document.querySelector('.img-upload__overlay');
 const cancelElement = document.querySelector('#upload-cancel');
 
 const onPopupOpen = () => {
-
   effectsListElement.addEventListener('change', onEffectsClick);
   document.addEventListener('keydown', onEscPress);
   cancelElement.addEventListener('click', onPopupClose);
