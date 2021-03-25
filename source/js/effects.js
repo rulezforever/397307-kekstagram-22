@@ -80,7 +80,9 @@ const getEffect = (current) => Effects[current];
 
 const onEffectsClick = (evt) => {
 
-  if (!evt.target.matches('input[type="radio"]')) return;
+  if (!evt.target.matches('input[type="radio"]')) {
+    return;
+  }
 
   currentFilter = evt.target.value;
 
