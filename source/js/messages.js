@@ -1,5 +1,5 @@
 import { onPopupClose } from './upload-picture.js';
-import { ESCAPE, hideElement, onPressedKey } from './util.js';
+import { ESCAPE, onPressedKey } from './util.js';
 
 const successMessageTemplateElement = document.querySelector('#success').content.querySelector('.success');
 const errorMessageTemplateElement = document.querySelector('#error').content.querySelector('.error');
@@ -36,10 +36,10 @@ const onMessageCloseByEmptyClick = (evt) => {
   }
 }
 const onSuccessMessageClose = () => {
-  hideElement(document.querySelector('.success'));
   document.querySelector('.success__button').removeEventListener('click', onSuccessMessageClose);
   document.removeEventListener('keydown', onSuccessCloseByEsc);
   document.removeEventListener('click', onMessageCloseByEmptyClick);
+  document.querySelector('.success').remove();
 }
 
 const renderSuccess = () => {
@@ -51,10 +51,10 @@ const renderSuccess = () => {
 }
 
 const onErrorMessageClose = () => {
-  hideElement(document.querySelector('.error'));
   document.querySelector('.error__button').removeEventListener('click', onErrorMessageClose);
   document.removeEventListener('keydown', onErrorCloseByEsc);
   document.removeEventListener('click', onMessageCloseByEmptyClick);
+  document.querySelector('.error').remove();
 }
 
 const renderError = () => {
