@@ -1,7 +1,7 @@
 import { sliderElement, valueElement } from './slider.js';
 
-const Effects = {
-  chrome: {
+const Effect = {
+  CHROME: {
     NAME: 'chrome',
     RANGE_MIN: 0,
     RANGE_MAX: 1,
@@ -9,7 +9,7 @@ const Effects = {
     STEP: 0.1,
     UNITS: '',
   },
-  sepia: {
+  SEPIA: {
     NAME: 'sepia',
     RANGE_MIN: 0,
     RANGE_MAX: 1,
@@ -17,7 +17,7 @@ const Effects = {
     STEP: 0.1,
     UNITS: '',
   },
-  marvin: {
+  MARVIN: {
     NAME: 'marvin',
     RANGE_MIN: 0,
     RANGE_MAX: 100,
@@ -25,7 +25,7 @@ const Effects = {
     STEP: 1,
     UNITS: '%',
   },
-  phobos: {
+  PHOBOS: {
     NAME: 'phobos',
     RANGE_MIN: 0,
     RANGE_MAX: 3,
@@ -33,7 +33,7 @@ const Effects = {
     STEP: 0.1,
     UNITS: 'px',
   },
-  heat: {
+  HEAT: {
     NAME: 'heat',
     RANGE_MIN: 1,
     RANGE_MAX: 3,
@@ -41,7 +41,7 @@ const Effects = {
     STEP: 0.1,
     UNITS: '',
   },
-  none: {
+  NONE: {
     NAME: 'none',
     RANGE_MIN: 0,
     RANGE_MAX: 1,
@@ -63,10 +63,10 @@ const previewCssFilterUpdate = () => {
       uploadPreviewElement.style.filter = `sepia(${valueElement.value})`;
       break;
     case 'marvin':
-      uploadPreviewElement.style.filter = `invert(${valueElement.value}${Effects.marvin.UNITS})`;
+      uploadPreviewElement.style.filter = `invert(${valueElement.value}${Effect.MARVIN.UNITS})`;
       break;
     case 'phobos':
-      uploadPreviewElement.style.filter = `blur(${valueElement.value}${Effects.phobos.UNITS})`;
+      uploadPreviewElement.style.filter = `blur(${valueElement.value}${Effect.PHOBOS.UNITS})`;
       break;
     case 'heat':
       uploadPreviewElement.style.filter = `brightness(${valueElement.value})`;
@@ -76,9 +76,9 @@ const previewCssFilterUpdate = () => {
 
 let currentFilter = '';
 
-const getEffect = (current) => Effects[current];
+const getEffect = (current) => Effect[current.toUpperCase()];
 
-const onEffectsClick = (evt) => {
+const onEffectsListElementClick = (evt) => {
 
   if (!evt.target.matches('input[type="radio"]')) {
     return;
@@ -117,4 +117,4 @@ sliderElement.noUiSlider.on('update',
     previewCssFilterUpdate();
   });
 
-export { Effects, uploadPreviewElement, effectsListElement, onEffectsClick };
+export { uploadPreviewElement, effectsListElement, onEffectsListElementClick };

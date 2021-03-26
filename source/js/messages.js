@@ -1,4 +1,4 @@
-import { onPopupClose } from './upload-picture.js';
+import { onCancelClick } from './upload-picture.js';
 import { ESCAPE, onPressedKey } from './util.js';
 
 const successMessageTemplateElement = document.querySelector('#success').content.querySelector('.success');
@@ -20,23 +20,23 @@ const getErrorMessageFragment = () => {
 }
 
 const onSuccessCloseByEsc = (evt) => {
-  onPressedKey(evt,ESCAPE,onSuccessMessageClose)
+  onPressedKey(evt,ESCAPE,onSuccessBtnClick)
 }
 
 const onErrorCloseByEsc = (evt) => {
-  onPressedKey(evt,ESCAPE,onErrorMessageClose)
+  onPressedKey(evt,ESCAPE,onErrorBtnClick)
 }
 
 const onMessageCloseByEmptyClick = (evt) => {
   if (evt.target === document.querySelector('.success')) {
-    onSuccessMessageClose();
+    onSuccessBtnClick();
   }
   if (evt.target === document.querySelector('.error')) {
-    onErrorMessageClose();
+    onErrorBtnClick();
   }
 }
-const onSuccessMessageClose = () => {
-  document.querySelector('.success__button').removeEventListener('click', onSuccessMessageClose);
+const onSuccessBtnClick = () => {
+  document.querySelector('.success__button').removeEventListener('click', onSuccessBtnClick);
   document.removeEventListener('keydown', onSuccessCloseByEsc);
   document.removeEventListener('click', onMessageCloseByEmptyClick);
   document.querySelector('.success').remove();
@@ -44,14 +44,14 @@ const onSuccessMessageClose = () => {
 
 const renderSuccess = () => {
   mainElement.appendChild(getSuccessMessageFragment());
-  document.querySelector('.success__button').addEventListener('click', onSuccessMessageClose);
-  onPopupClose();
+  document.querySelector('.success__button').addEventListener('click', onSuccessBtnClick);
+  onCancelClick();
   document.addEventListener('keydown', onSuccessCloseByEsc);
   document.addEventListener('click', onMessageCloseByEmptyClick);
 }
 
-const onErrorMessageClose = () => {
-  document.querySelector('.error__button').removeEventListener('click', onErrorMessageClose);
+const onErrorBtnClick = () => {
+  document.querySelector('.error__button').removeEventListener('click', onErrorBtnClick);
   document.removeEventListener('keydown', onErrorCloseByEsc);
   document.removeEventListener('click', onMessageCloseByEmptyClick);
   document.querySelector('.error').remove();
@@ -59,8 +59,8 @@ const onErrorMessageClose = () => {
 
 const renderError = () => {
   mainElement.appendChild(getErrorMessageFragment());
-  document.querySelector('.error__button').addEventListener('click', onErrorMessageClose);
-  onPopupClose();
+  document.querySelector('.error__button').addEventListener('click', onErrorBtnClick);
+  onCancelClick();
   document.addEventListener('keydown', onErrorCloseByEsc);
   document.addEventListener('click', onMessageCloseByEmptyClick);
 }

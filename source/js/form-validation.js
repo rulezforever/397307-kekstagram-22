@@ -1,6 +1,7 @@
 import {sendData} from './api.js';
 import { renderError, renderSuccess } from './messages.js';
 
+const SYMBOLS_PATTERN = /^[0-9A-Za-zА-Яа-я]+$/;
 const COMMENT_MAX_LENGTH = 140;
 const Tags = {
   MAX_LENGTH: 20,
@@ -11,7 +12,6 @@ const Tags = {
 
 const formElement = document.querySelector('.img-upload__form');
 const hashtagInputElement = formElement.querySelector('.text__hashtags');
-const symbolsPattern = /^[0-9A-Za-zА-Яа-я]+$/;
 const commentElement = formElement.querySelector('.text__description');
 
 const onHashtagInput = () => {
@@ -25,7 +25,7 @@ const onHashtagInput = () => {
         hashtagInputElement.setCustomValidity('хэш-тег должен начинаться с символа # (решётка)');
       } else if (hashtag.length < Tags.MIN) {
         hashtagInputElement.setCustomValidity('хеш-тег не может состоять только из одной решётки');
-      } else if (!symbolsPattern.test(hashtag.slice(1))) {
+      } else if (!SYMBOLS_PATTERN.test(hashtag.slice(1))) {
         hashtagInputElement.setCustomValidity('строка после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.');
       } else if (hashtag.length > Tags.MAX_LENGTH) {
         hashtagInputElement.setCustomValidity(`максимальная длина одного хэш-тега ${Tags.MAX_LENGTH} символов, включая решётку`);
@@ -53,12 +53,12 @@ const onCommentInput = () => {
 hashtagInputElement.addEventListener('input', onHashtagInput);
 commentElement.addEventListener('input', onCommentInput);
 
-const onEscPressBlock = (evt) => {
+const onFormElementEscPressBlock = (evt) => {
   evt.stopPropagation();
 }
 
-hashtagInputElement.addEventListener('keydown', onEscPressBlock);
-commentElement.addEventListener('keydown', onEscPressBlock);
+hashtagInputElement.addEventListener('keydown', onFormElementEscPressBlock);
+commentElement.addEventListener('keydown', onFormElementEscPressBlock);
 
 
 const setUploadFileFormSubmit = () => {
@@ -72,4 +72,4 @@ const setUploadFileFormSubmit = () => {
   });
 };
 
-export { hashtagInputElement, commentElement, onEscPressBlock, setUploadFileFormSubmit }
+export { hashtagInputElement, commentElement, onFormElementEscPressBlock, setUploadFileFormSubmit }

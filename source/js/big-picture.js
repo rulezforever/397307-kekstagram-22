@@ -31,24 +31,24 @@ const openBigPicture = (post) => {
   showElement(bigPictureElement);
 
   closeBtnElement.addEventListener('click', onCloseBtnClick);
-  document.addEventListener('keydown',onEscPress);
+  document.addEventListener('keydown',onDocumentEscPress);
 };
 
 const onCloseBtnClick = () => {
   hideElement(bigPictureElement);
   closeBtnElement.removeEventListener('click', onCloseBtnClick);
   bodyElement.classList.remove('modal-open');
-  document.removeEventListener('keydown',onEscPress);
+  document.removeEventListener('keydown',onDocumentEscPress);
 }
 
-const onLoadMoreClick = () => {
+const onCommentsLoaderClick = () => {
   showComments();
   updateCommentsCount();
 }
 
-commentsLoaderElement.addEventListener('click', onLoadMoreClick);
+commentsLoaderElement.addEventListener('click', onCommentsLoaderClick);
 
-const onEscPress = (evt) => {
+const onDocumentEscPress = (evt) => {
   onPressedKey(evt,ESCAPE,onCloseBtnClick);
 }
 

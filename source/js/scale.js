@@ -29,10 +29,10 @@ const changeResizeValue = (action) => {
   }
 }
 
-const onMinusBtnClick =  () => changeResizeValue('decrease');
-const onPlusBtnClick = () => changeResizeValue('increase');
+const onScaleMinusClick =  () => changeResizeValue('decrease');
+const onScalePlusClick = () => changeResizeValue('increase');
 
-scaleMinusElement.addEventListener('click', onMinusBtnClick);
-scalePlusElement.addEventListener('click', onPlusBtnClick);
+scaleMinusElement.addEventListener('click', onScaleMinusClick);
+scalePlusElement.addEventListener('click', onScalePlusClick);
 
 export { changeScale, scaleValueElement, SCALE_VALUE}
